@@ -1,6 +1,6 @@
 // Enable the ability to log chat and commands, just like Java server.
 // soraboken / Rosetta Emerson (c) 2021
-console.log("[LOGGER] Prepare logging, please wait...!");
+console.log("[LOGGER] Loaded!");
 import { command, nethook, MinecraftPacketIds } from 'bdsx';
 
 nethook.before(MinecraftPacketIds.Text).on((packet, networkIdentifier) => {
