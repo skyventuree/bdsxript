@@ -16,17 +16,14 @@ const compliments = [
 const colorCodes = ["a", "b", "c", "d", "e"];
 
 system.listenForEvent("minecraft:entity_hurt", eventData => {
-	const { 
-		attacker,
-		entity,
-		cause
-	} = eventData;
-	
-	if (cause === "projectile") {
-		const attackerName = system.getComponent(attacker, MinecraftComponent.Nameable)!.data.name;
-		system.executeCommand(`execute "${attackerName}" ~ ~ ~ playsound random.orb @s ~ ~ ~ 1 0.5`, () => {
-		  system.executeCommand(`title "${attackerName}" times 0 0 2`, () => {
-		    system.executeCommand(`title "${attackerName}" actionbar §${colorCodes[Math.floor(Math.random() * colorCodes.length)]}${compliments[Math.floor(Math.random() * compliments.length)]}`, () => {});
+  const { attacker, entity, cause } = eventData;
+  
+  if (cause === "projectile") {
+    const attackerName = system.getComponent(attacker, MinecraftComponent.Nameable)!.data.name;
+    
+    system.executeCommand(`execute "${attackerName}" ~ ~ ~ playsound random.orb @s ~ ~ ~ 1 0.5`, () => {
+      system.executeCommand(`title "${attackerName}" times 0 0 2`, () => {
+        system.executeCommand(`title "${attackerName}" actionbar §${colorCodes[Math.floor(Math.random() * colorCodes.length)]}${compliments[Math.floor(Math.random() * compliments.length)]}`, () => {});
 		  });
 		});
 	}

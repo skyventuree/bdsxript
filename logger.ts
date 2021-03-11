@@ -17,6 +17,6 @@ nethook.after(MinecraftPacketIds.Login).on((ptr, networkIdentifier, packetId) =>
 });
 
 command.hook.on((commandText, origin) => {
-  if ( origin.includes(["Script Engine", "Server"])) return;
+  if ( ["Script Engine", "Server"].indexOf(origin) > -1 ) return;
   console.log(`[LOGGER] ${origin} executed: ${commandText}`);
 });

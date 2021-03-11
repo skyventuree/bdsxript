@@ -361,7 +361,6 @@ export {
     setBossBar,
     deleteBossBar,
     netCmd,
-    numberToKorean,
     numberFormat,
     ListenInvTransaction
 };
