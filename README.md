@@ -13,3 +13,9 @@ in your `index.ts` and run
 npm run build
 ```
 and BDSX2 will take care of the rest when you run the server.
+
+# Credits
+[bdsX-script](https://github.com/minyee2913/bdsX-scripts) by minyee2913
+
+# License
+This repository uses MIT License.
