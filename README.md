@@ -2,7 +2,12 @@
 Typescript Scripts for BDSX2 software.
 
 # How to use
-Include this line in your `index.ts` and run
+Include this line 
+
+```
+import "./bdsxript";
+```
+in your `index.ts` and run
 
 ```
 npm run build
