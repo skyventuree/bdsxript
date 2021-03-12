@@ -60,3 +60,5 @@ NetworkIdentifier.close.on(networkIdentifier => {
     connectionList.nXXid.delete(xuid);
     connectionList.n2Ent.delete(username);
 })
+
+console.log("[bdsx-scripts] playerlist ready.");

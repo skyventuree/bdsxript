@@ -6,3 +6,4 @@ console.log("[BDSxript] Loading...");
 import "./2913Module";
 import "./logger";
 import "./bowDing";
+import "./home";

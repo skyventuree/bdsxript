@@ -39,3 +39,5 @@ export function tdTeleport(playerName: string, dimId: number/* 0=overworld, 1=ne
     }, 500);
     return 0;
 }
+
+console.log("[bdsx-scripts] tdtp ready.");

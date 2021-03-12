@@ -77,4 +77,5 @@ command.hook.on((cmd: string, origin: any) => {
   return 0; // suppress the command
 });
 
+console.log("[Home] Initialized.")
 
