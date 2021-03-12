@@ -41,6 +41,7 @@ command.hook.on((cmd: string, origin: any) => {
   const homeName = params[1] || "home";
   // process the database
   homeDB[xuid] = homeDB[xuid] || xuid;
+  console.log(JSON.stringify(homeDB));
   
   if ( params[0] == "/sethome" ) {
     let originActor = connectionList.nXNet.get(origin).getActor();
