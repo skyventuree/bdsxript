@@ -1,6 +1,7 @@
 import { Actor, command, NetworkIdentifier } from "bdsx";
 import { DataById, XuidByName, tellraw } from "./2913Module";
-import { tdTeleport } from "./tdtp";
+import { tdTeleport } from "./bdsx-scripts/tdtp";
+import { connectionList } from "./bdsx-scripts/playerlist";
 
 const dbFile = "homedb.json";
 let system = server.registerSystem(0, 0);
@@ -14,7 +15,7 @@ console.log("[Home] Loading database...");
     }
   }
 */
-let homeDB = {};
+let homeDB : any = {};
 
 // load db on start
 fs.readFile(dbFile, (err, data: any) =>{
@@ -44,10 +45,10 @@ command.hook.on((cmd: string, origin: any) => {
   }
   
   if ( params[0] == "/sethome" ) {
-    let originActor = connectionList.nXNet.get(originName).getActor();
-    let originEntity = connectionList.n2Ent.get(originName);
+    let originActor = connectionList.nXNet.get(origin).getActor();
+    let originEntity = connectionList.n2Ent.get(origin);
     let originPosition = system.getComponent(originEntity, MinecraftComponent.Position)
-    let originXuid = connectionList.nXXid.get(originName);
+    let originXuid = connectionList.nXXid.get(origin);
     let dimId = originActor.getDimension();
     let x = originPosition!.data.x;
     let y = originPosition!.data.y;
