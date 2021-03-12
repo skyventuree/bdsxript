@@ -2,6 +2,7 @@ import { Actor, command, NetworkIdentifier } from "bdsx";
 import { DataById, XuidByName, tellraw } from "./2913Module";
 import { tdTeleport } from "./bdsx-scripts/tdtp";
 import { connectionList } from "./bdsx-scripts/playerlist";
+import fs = require("fs");
 
 const dbFile = "homedb.json";
 let system = server.registerSystem(0, 0);
