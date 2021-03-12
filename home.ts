@@ -40,7 +40,7 @@ command.hook.on((cmd: string, origin: any) => {
   const xuid = XuidByName(origin);
   const homeName = params[1] || "home";
   // process the database
-  homeDB[xuid] = homeDB[xuid] || xuid;
+  homeDB[xuid] = homeDB[xuid] || {};
   console.log(JSON.stringify(homeDB));
   
   if ( params[0] == "/sethome" ) {
