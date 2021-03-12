@@ -23,6 +23,7 @@ let playerList:string[] = [];
 let nIt = new Map();
 let nMt = new Map();
 let nXt = new Map();
+
 nethook.after(PacketId.Login).on((ptr, networkIdentifier) => {
     const cert = ptr.connreq.cert;
     const xuid = cert.getXuid();
@@ -31,6 +32,7 @@ nethook.after(PacketId.Login).on((ptr, networkIdentifier) => {
     nIt.set(username, networkIdentifier);
     nMt.set(networkIdentifier, username);
 });
+
 nethook.after(PacketId.SetLocalPlayerAsInitialized).on((ptr, target) => {
     let actor = target.getActor();
     let entity = actor!.getEntity();
@@ -39,6 +41,7 @@ nethook.after(PacketId.SetLocalPlayerAsInitialized).on((ptr, target) => {
         if(!playerList.includes(playerName)) playerList.push(playerName);
     },100);
 });
+
 NetworkIdentifier.close.on(networkIdentifier => {
     const id = nMt.get(networkIdentifier);
     if (playerList.includes(id)) playerList.splice(playerList.indexOf(id),1);
@@ -46,6 +49,7 @@ NetworkIdentifier.close.on(networkIdentifier => {
     nMt.delete(networkIdentifier);
     nIt.delete(id);
 });
+
 /**
   *get playerXuid by Name
 */
@@ -53,6 +57,7 @@ function XuidByName(PlayerName: string) {
     let Rlt:any = nXt.get(PlayerName);
     return Rlt;
 }
+
 /**
   *get playerName by Id
 */
@@ -60,6 +65,7 @@ function NameById(networkIdentifier: NetworkIdentifier) {
     let Rlt:string = nMt.get(networkIdentifier);
     return Rlt;
 }
+
 /**
   *get playerData by Id
   *result = [name,actor,entity, xuid]
@@ -132,11 +138,15 @@ nethook.raw(PacketId.ModalFormResponse).on((ptr, size, networkIdentifier) => {
  * Json == 9,
 */
 function sendText(networkIdentifier: NetworkIdentifier, text: string, type: number) {
-    const Packet = TextPacket.create();
-    Packet.message = text;
-    Packet.setUint32(type, 0x28);
-    Packet.sendTo(networkIdentifier, 0);
-    Packet.dispose();
+  const Packet = TextPacket.create();
+  Packet.message = text;
+  Packet.setUint32(type, 0x28);
+  Packet.sendTo(networkIdentifier, 0);
+  Packet.dispose();
+}
+
+function tellraw(origin: any, message: string) {
+  system.executeCommand(`tellraw "${origin}" "${message}"`, () => {});
 }
 
 /////////////////////////////////////////
@@ -362,5 +372,6 @@ export {
     deleteBossBar,
     netCmd,
     numberFormat,
-    ListenInvTransaction
+    ListenInvTransaction,
+    tellraw
 };
