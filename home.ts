@@ -40,10 +40,7 @@ command.hook.on((cmd: string, origin: any) => {
   const xuid = XuidByName(origin);
   const homeName = params[1] || "home";
   // process the database
-  if ( homeDB.indexOf(xuid) == -1 ) {
-    // create player prop if not exist
-    homeDB.push(xuid);
-  }
+  homeDB[xuid] = homeDB[xuid] || xuid;
   
   if ( params[0] == "/sethome" ) {
     let originActor = connectionList.nXNet.get(origin).getActor();
