@@ -1,7 +1,6 @@
 import { Actor, command, NetworkIdentifier } from "bdsx";
-import { DataById, XuidByName, tellraw } from "./2913Module";
-import { tdTeleport } from "./bdsx-scripts/tdtp";
-import { connectionList } from "./bdsx-scripts/playerlist";
+import { DataById, XuidByName, IdByName, sendText } from "./2913Module";
+import { teleport } from "./dimtp";
 import fs = require("fs");
 
 const dbFile = "homedb.json";
@@ -38,11 +37,13 @@ system.shutdown = function(){
 command.hook.on((cmd: string, origin: any) => {
   const params = cmd.split(' ');
   const xuid = XuidByName(origin);
+  const pNetid = IdByName(origin);
   const homeName = params[1] || "home";
   // process the database
   homeDB[xuid] = homeDB[xuid] || {};
   
   if ( params[0] == "/sethome" ) {
+    // taken from randommouse/bdsx-scripts
     let originActor = connectionList.nXNet.get(origin).getActor();
     let originEntity = connectionList.n2Ent.get(origin);
     let originPosition = system.getComponent(originEntity, MinecraftComponent.Position)
@@ -51,6 +52,7 @@ command.hook.on((cmd: string, origin: any) => {
     let x = originPosition!.data.x;
     let y = originPosition!.data.y;
     let z = originPosition!.data.z;
+    
     let homeData = {
       x: x,
       y: y,
@@ -58,7 +60,7 @@ command.hook.on((cmd: string, origin: any) => {
       dimId: dimId
     }
     homeDB[xuid][homeName] = homeData;
-    tellraw(origin, `Your home §o${homeName} §ris set!`);
+    sendText(pNetid, `Your home §o${homeName} is successfully set!`, 0);
     return 0;
   }
   
@@ -68,8 +70,9 @@ command.hook.on((cmd: string, origin: any) => {
     const x = homeData.x;
     const y = homeData.y;
     const z = homeData.z;
-    tdTeleport(origin, dimId, x, y, z);
-    tellraw(origin, `Teleported to §o${homeName}§r!`);
+    teleport(origin, {x: x, y: y, z: z}, dimId)
+    sendText(pNetid, `Teleported you to §o${homeName}`, 0);
+    
     return 0;
   }
 });
