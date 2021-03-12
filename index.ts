@@ -7,3 +7,5 @@ import "./2913Module";
 import "./logger";
 import "./bowDing";
 import "./home";
+
+console.log("[BDSxript] Modules is now on listening to event...");

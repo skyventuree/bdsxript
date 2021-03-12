@@ -57,8 +57,9 @@ command.hook.on((cmd: string, origin: any) => {
       z: z,
       dimId: dimId
     }
-    homeDB[xuid].set(homeName, homeData);
+    homeDB[xuid][homeName] = homeData;
     tellraw(origin, `Your home §o${homeName} §ris set!`);
+    return 0;
   }
   
   if ( params[0] == "/home" ) {
@@ -69,9 +70,8 @@ command.hook.on((cmd: string, origin: any) => {
     const z = homeData.z;
     tdTeleport(origin, dimId, x, y, z);
     tellraw(origin, `Teleported to §o${homeName}§r!`);
+    return 0;
   }
-  
-  return 0; // suppress the command
 });
 
 console.log("[Home] Initialized.")
