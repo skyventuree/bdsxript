@@ -38,7 +38,10 @@ const saveDelay = 600000; //ms
 let DbInterval = setInterval(saveHomeDB, saveDelay);
 
 // stop saving after shutdown
-system.shutdown = clearInterval(DbInterval);
+system.shutdown = function(){
+  clearInterval(DbInterval);
+  console.log("[Home] Database saving task stopped.")
+}
 
 // listen for commands
 command.hook.on((cmd: string, origin: any) => {
