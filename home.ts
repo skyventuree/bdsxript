@@ -88,7 +88,7 @@ command.hook.on((cmd: string, origin: any) => {
     const y = homeData.y;
     const z = homeData.z;
     //teleport(origin, {x: x, y: y, z: z}, dimId);
-    system.executeCommand(`tp "${origin}" ${x} ${y} ${z}`)
+    system.executeCommand(`tp "${origin}" ${x} ${y} ${z}`, () => {});
     sendText(pNetid, `Teleported you to §o${homeName}`, 0);
     return 0;
   }
