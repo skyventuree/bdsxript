@@ -1,6 +1,7 @@
 import { Actor, command, NetworkIdentifier } from "bdsx";
-import { DataById, XuidByName, IdByName, sendText } from "./2913Module";
-import { teleport } from "./dimtp";
+import { DataById, XuidByName, IdByName, sendText } from "./modules/2913Module";
+import { teleport } from "./modules/dimtp";
+import { connectionList } from "./modules/playerlist";
 import fs = require("fs");
 
 const dbFile = "homedb.json";
@@ -72,7 +73,6 @@ command.hook.on((cmd: string, origin: any) => {
     const z = homeData.z;
     teleport(origin, {x: x, y: y, z: z}, dimId)
     sendText(pNetid, `Teleported you to §o${homeName}`, 0);
-    
     return 0;
   }
 });

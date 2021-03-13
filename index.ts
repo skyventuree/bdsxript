@@ -3,7 +3,7 @@
 // 2021 (c) Rosetta Emerson
 console.log("[BDSxript] Loading...");
 
-import "./2913Module";
+import "./modules/2913Module";
 import "./logger";
 import "./bowDing";
 import "./home";
