@@ -1,6 +1,6 @@
 import { Actor, command, NetworkIdentifier } from "bdsx";
 import { DataById, XuidByName, IdByName, sendText } from "./modules/2913Module";
-import { teleport } from "./modules/dimtp";
+//import { teleport } from "./modules/dimtp";
 import { connectionList } from "./modules/playerlist";
 import fs = require("fs");
 
@@ -65,17 +65,30 @@ command.hook.on((cmd: string, origin: any) => {
     return 0;
   }
   
+  if ( params[0] == "/homelist" ) {
+    let homeList = Object.keys(homeDB[xuid]).join(", ");
+    sendText(pNetid, `Your homes: ${homeList}`, 0);
+    return 0;
+  }
+  
   if ( params[0] == "/home" ) {
     const homeData = homeDB[xuid][homeName];
     if ( homeData == undefined ) {
       sendText(pNetid, `§4${homeName} does not exist.`, 0);
       return 0;
     }
+    let originActor = connectionList.nXNet.get(origin).getActor();
+    let dimIdLive = originActor.getDimension();
     const dimId = homeData.dimId;
+    if ( dimId != dimIdLive ) {
+      sendText(pNetid, `§4Due to technical limitation, you have to be in the same dimension you set with your home in order to teleport.§8§o(dimId: ${dimId})`, 0);
+      return 0;
+    }
     const x = homeData.x;
     const y = homeData.y;
     const z = homeData.z;
-    teleport(origin, {x: x, y: y, z: z}, dimId)
+    //teleport(origin, {x: x, y: y, z: z}, dimId);
+    system.executeCommand(`tp "${origin}" ${x} ${y} ${z}`)
     sendText(pNetid, `Teleported you to §o${homeName}`, 0);
     return 0;
   }
