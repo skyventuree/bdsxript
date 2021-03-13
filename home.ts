@@ -66,8 +66,9 @@ command.hook.on((cmd: string, origin: any) => {
   }
   
   if ( params[0] == "/homelist" ) {
-    let homeList = Object.keys(homeDB[xuid]).join(", ");
-    sendText(pNetid, `Your homes: ${homeList}`, 0);
+    let homeList = Object.keys(homeDB[xuid]);
+    if ( homeList.length > 0 ) sendText(pNetid, `Your available homes: ${homeList.join(", ")}`, 0);
+    else sendText(pNetid, `No home available. Try /sethome to set your first home!`, 0);
     return 0;
   }
   
