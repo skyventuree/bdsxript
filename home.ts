@@ -61,12 +61,16 @@ command.hook.on((cmd: string, origin: any) => {
       dimId: dimId
     }
     homeDB[xuid][homeName] = homeData;
-    sendText(pNetid, `Your home §o${homeName} is successfully set!`, 0);
+    sendText(pNetid, `Your home §o${homeName} §ris successfully set!`, 0);
     return 0;
   }
   
   if ( params[0] == "/home" ) {
     const homeData = homeDB[xuid][homeName];
+    if ( homeData == undefined ) {
+      sendText(pNetid, `§4${homeName} does not exist.`, 0);
+      return 0;
+    }
     const dimId = homeData.dimId;
     const x = homeData.x;
     const y = homeData.y;
