@@ -26,13 +26,19 @@ fs.readFile(dbFile, (err, data: any) =>{
     }
 });
 
-// save db after shutdown
-system.shutdown = function(){
-    let filedata = JSON.stringify(homeDB);
-        fs.writeFile(dbFile, filedata, () => {
-            console.log('[Home] Database successfully saved.');
-        });
-}
+function saveHomeDB(){
+  let filedata = JSON.stringify(homeDB);
+    fs.writeFile(dbFile, filedata, () => {
+      console.log('[Home] Database successfully saved.');
+    });
+  }
+
+// save db every 10 minutes
+const saveDelay = 600000; //ms
+let DbInterval = setInterval(saveHomeDB, saveDelay);
+
+// stop saving after shutdown
+system.shutdown = clearInterval(DbInterval);
 
 // listen for commands
 command.hook.on((cmd: string, origin: any) => {
